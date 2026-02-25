@@ -32,10 +32,15 @@ app.delete('/api/invoices/:id', (req, res) => {
 app.post('/api/invoices', (req, res) => {
   const inv = req.body;
   if (!inv || !inv.id) return res.status(400).json({ error: 'Invalid invoice data' });
-  const invoices = loadInvoices();
-  invoices.unshift(inv);
-  saveInvoices(invoices);
-  res.json({ ok: true });
+  try {
+    const invoices = loadInvoices();
+    invoices.unshift(inv);
+    saveInvoices(invoices);
+    res.json({ ok: true });
+  } catch (err) {
+    console.error('Error saving invoice:', err);
+    res.status(500).json({ error: 'Failed to save to disk: ' + err.message });
+  }
 });
 
 // PUT update invoice (manual corrections)
