@@ -44,7 +44,6 @@
       font-size: 15px
     }
 
-    /* ── HEADER ── */
     header {
       background: var(--ink);
       padding: 0 32px;
@@ -115,7 +114,6 @@
       background: var(--accent2)
     }
 
-    /* ── TABS ── */
     .nav-tabs {
       background: var(--card);
       border-bottom: 1px solid var(--border);
@@ -171,7 +169,6 @@
       display: block
     }
 
-    /* ── KPI ── */
     .kpi-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
@@ -236,7 +233,6 @@
       color: var(--muted)
     }
 
-    /* ── CHARTS ── */
     .charts-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -353,7 +349,6 @@
       white-space: nowrap
     }
 
-    /* ── UPLOAD ── */
     .upload-zone {
       background: var(--card);
       border: 2.5px dashed var(--border);
@@ -482,7 +477,6 @@
       }
     }
 
-    /* ── TABLE ── */
     .table-wrap {
       background: var(--card);
       border-radius: var(--radius);
@@ -622,7 +616,6 @@
       background: var(--tag-bg)
     }
 
-    /* ── MODAL ── */
     .mo {
       position: fixed;
       inset: 0;
@@ -762,7 +755,6 @@
       border: 1px solid var(--border)
     }
 
-    /* ── EMPTY ── */
     .empty {
       text-align: center;
       padding: 55px 20px;
@@ -786,7 +778,6 @@
       font-size: 14px
     }
 
-    /* ── INFO BANNER ── */
     .info-banner {
       background: #fffbeb;
       border: 1px solid #fde68a;
@@ -801,7 +792,6 @@
       line-height: 1.5
     }
 
-    /* ── TOAST ── */
     .toast {
       position: fixed;
       bottom: 24px;
@@ -835,7 +825,6 @@
       color: #f87171
     }
 
-    /* section title */
     .stitle {
       font-family: 'Syne', sans-serif;
       font-size: 17px;
@@ -860,16 +849,12 @@
 </head>
 
 <body>
-
   <header>
     <div class="logo">
       <div class="logo-icon">📁</div>InvoiceVault
     </div>
-    <div class="hdr-right">
-      <a class="hdr-btn primary" href="/api/export">⬇ Export CSV</a>
-    </div>
+    <div class="hdr-right"><a class="hdr-btn primary" href="/api/export">⬇ Export CSV</a></div>
   </header>
-
   <div class="nav-tabs">
     <div class="nav-tab active" onclick="switchTab('dashboard')">📊 Dashboard</div>
     <div class="nav-tab" onclick="switchTab('upload')">⬆ Upload PDFs</div>
@@ -878,10 +863,7 @@
     <div class="nav-tab" onclick="switchTab('monthly')">📅 Monthly</div>
     <div class="nav-tab" onclick="switchTab('clients')">👥 Clients</div>
   </div>
-
   <main>
-
-    <!-- ═══ DASHBOARD ═══ -->
     <div class="tab-pane active" id="tab-dashboard">
       <div class="kpi-grid">
         <div class="kpi-card blue">
@@ -918,19 +900,15 @@
       <div class="stitle">Recent Invoices</div>
       <div class="table-wrap" id="recentTable"></div>
     </div>
-
-    <!-- ═══ UPLOAD ═══ -->
     <div class="tab-pane" id="tab-upload">
-      <div class="info-banner">
-        💡 <div><strong>How it works:</strong> Upload a PDF invoice — the app reads the text directly from the file and
-          extracts amounts, dates, and client names automatically. If anything is wrong, you can fix it by clicking ✏️
-          on any invoice. <strong>No internet connection needed for extraction — 100% free.</strong></div>
+      <div class="info-banner">💡 <div><strong>How it works:</strong> Upload a PDF invoice — the app reads text directly
+          from file and extracts data. <strong>No internet needed for extraction — 100% free.</strong></div>
       </div>
       <div class="upload-zone" id="uploadZone" onclick="document.getElementById('fileInput').click()"
         ondrop="handleDrop(event)" ondragover="handleDragOver(event)" ondragleave="handleDragLeave(event)">
         <div class="upload-icon">📤</div>
         <div class="upload-title">Drop invoice PDFs here</div>
-        <div class="upload-sub">Or click to browse — supports multiple files at once</div>
+        <div class="upload-sub">Or click to browse</div>
         <button class="upload-btn-inner"
           onclick="event.stopPropagation();document.getElementById('fileInput').click()">Choose PDFs</button>
       </div>
@@ -940,13 +918,10 @@
         <div class="queue-list" id="queueList"></div>
       </div>
     </div>
-
-    <!-- ═══ ALL INVOICES ═══ -->
     <div class="tab-pane" id="tab-invoices">
       <div class="table-wrap">
         <div class="table-toolbar">
-          <input class="search-box" id="searchBox" placeholder="🔍 Search client, invoice #..."
-            oninput="renderInvTable()">
+          <input class="search-box" id="searchBox" placeholder="🔍 Search..." oninput="renderInvTable()">
           <select class="filter-sel" id="yrFilter" onchange="renderInvTable()">
             <option value="">All years</option>
           </select>
@@ -958,51 +933,28 @@
         <div id="invTableBody"></div>
       </div>
     </div>
-
-    <!-- ═══ MONTHLY ═══ -->
     <div class="tab-pane" id="tab-monthly">
       <div id="monthlyContent"></div>
     </div>
-
-    <!-- ═══ CLIENTS ═══ -->
     <div class="tab-pane" id="tab-clients">
       <div id="clientsContent"></div>
     </div>
-
   </main>
-
-  <!-- ═══ DETAIL / EDIT MODAL ═══ -->
   <div class="mo" id="mo" onclick="closeMo(event)">
     <div class="modal">
       <div class="modal-hdr">
-        <div class="modal-title" id="moTitle">Invoice</div>
-        <button class="modal-close" onclick="closeMoDirect()">✕</button>
+        <div class="modal-title" id="moTitle">Invoice</div><button class="modal-close"
+          onclick="closeMoDirect()">✕</button>
       </div>
       <div id="moContent"></div>
     </div>
   </div>
-
   <div class="toast" id="toast"></div>
-
-  <!-- pdf.js from CDN -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
   <script>
     pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
-
-    // ══════════════════════════════════════════════════════
-    //  STATE
-    // ══════════════════════════════════════════════════════
     let invoices = [];
-
-    async function loadData() {
-      try { const r = await fetch('/api/invoices'); invoices = await r.json(); }
-      catch { invoices = []; }
-      refresh();
-    }
-
-    // ══════════════════════════════════════════════════════
-    //  TABS
-    // ══════════════════════════════════════════════════════
+    async function loadData() { try { const r = await fetch('/api/invoices'); invoices = await r.json(); } catch { invoices = []; } refresh(); }
     function switchTab(name) {
       document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
       document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
@@ -1013,15 +965,10 @@
       if (name === 'monthly') renderMonthly();
       if (name === 'clients') renderClients();
     }
-
-    // ══════════════════════════════════════════════════════
-    //  UPLOAD & PDF PARSING
-    // ══════════════════════════════════════════════════════
     function handleDragOver(e) { e.preventDefault(); document.getElementById('uploadZone').classList.add('drag-over'); }
     function handleDragLeave() { document.getElementById('uploadZone').classList.remove('drag-over'); }
     function handleDrop(e) { e.preventDefault(); handleDragLeave(); processFiles([...e.dataTransfer.files]); }
     function handleFiles(e) { processFiles([...e.target.files]); e.target.value = ''; }
-
     async function processFiles(files) {
       const pdfs = files.filter(f => f.name.toLowerCase().endsWith('.pdf'));
       if (!pdfs.length) { showToast('Please upload PDF files only', 'err'); return; }
@@ -1037,15 +984,9 @@
           invoices.unshift(inv);
           refresh();
           setQStatus(qid, 'done', `✓ ${inv.clientName || 'Unknown'} — $${fmt(inv.total)}`);
-          showToast(file.name + ' processed!', 'ok');
-        } catch (e) {
-          setQStatus(qid, 'err', '✕ ' + e.message);
-          showToast('Error: ' + e.message, 'err');
-        }
+        } catch (e) { setQStatus(qid, 'err', '✕ ' + e.message); }
       }
     }
-
-    // ── Read all text from a PDF using pdf.js ────────────────────────────────────
     async function readPDF(file) {
       const buf = await file.arrayBuffer();
       const pdf = await pdfjsLib.getDocument({ data: buf }).promise;
@@ -1053,10 +994,8 @@
       for (let i = 1; i <= pdf.numPages; i++) {
         const page = await pdf.getPage(i);
         const content = await page.getTextContent();
-        // Preserve relative positions to help with column alignment
-        const items = content.items;
         let line = '', lastY = null;
-        for (const item of items) {
+        for (const item of content.items) {
           const y = Math.round(item.transform[5]);
           if (lastY !== null && Math.abs(y - lastY) > 5) { text += line.trim() + '\n'; line = ''; }
           line += item.str + ' ';
@@ -1067,475 +1006,70 @@
       }
       return text;
     }
-
-    // ── Smart regex-based parser ─────────────────────────────────────────────────
     function parseInvoice(text, filename) {
-      const find = (patterns) => {
-        for (const p of patterns) {
-          const m = text.match(p);
-          if (m && m[1] && m[1].trim()) return m[1].trim();
-        }
-        return null;
-      };
-
-      // Invoice number — change 1: more specific patterns for "INVOICE # 17818" style
-      const invoiceNumber = find([
-        /invoice\s*#\s*(\d+)/i,                        // "INVOICE # 17818"
-        /invoice\s*(?:number|no\.?)\s*[:\-]?\s*([A-Z0-9][A-Z0-9\-\/]{1,20})/i,
-        /inv\s*[#no.]*\s*[:\-]?\s*([A-Z0-9][A-Z0-9\-\/]{1,20})/i,
-        /#\s*([0-9]{3,10})\b/,                          // pure number after #
-      ]);
-
-      // Client name — change 2: check same-line first ("Bill To : PIONEER"), then next line
-      const clientName = find([
-        /bill\s+to\s*[:\s]+([A-Z][A-Z0-9 &'.,-]{1,50}?)(?:\n|$)/i,   // same line
-        /bill(?:ed)?\s+to[:\s]*\n\s*([A-Za-z][^\n]{2,50})/i,          // next line fallback
-        /client\s*[:\-]\s*([^\n]{2,50})/i,
-        /customer\s*[:\-]\s*([^\n]{2,50})/i,
-        /sold\s+to[:\s]*\n?\s*([A-Za-z][^\n]{2,50})/i,
-      ]);
-
-      // Date
-      const rawDate = find([
-        /invoice\s+date\s*[:\-]\s*(\d{1,2}[\/\-\.]\d{1,2}[\/\-\.]\d{2,4})/i,
-        /date\s+of\s+invoice\s*[:\-]\s*(\d{1,2}[\/\-\.]\d{1,2}[\/\-\.]\d{2,4})/i,
-        /date\s*[:\-]\s*(\d{1,2}[\/\-\.]\d{1,2}[\/\-\.]\d{2,4})/i,
-        /date\s*[:\-]\s*([A-Za-z]+ \d{1,2},?\s*\d{4})/i,
-        /(\d{1,2}[\/\-]\d{1,2}[\/\-]\d{4})/,
-        /(\d{4}[\/\-]\d{1,2}[\/\-]\d{1,2})/,
-      ]);
-
+      const find = (pts) => { for (const p of pts) { const m = text.match(p); if (m && m[1]) return m[1].trim(); } return null; };
+      const invoiceNumber = find([/invoice\s*#\s*(\d+)/i, /invoice\s*(?:number|no\.?)\s*[:\-]?\s*([A-Z0-9\-]{1,20})/i, /inv\s*[#no.]*\s*[:\-]?\s*([A-Z0-9\-]{1,20})/i, /#\s*([0-9]{3,10})\b/]);
+      const clientName = find([/bill\s+to\s*[:\s]+([A-Z][A-Z0-9 &'.,-]{1,50}?)(?:\n|$)/i, /bill(?:ed)?\s+to[:\s]*\n\s*([A-Za-z][^\n]{2,50})/i, /client\s*[:\-]\s*([^\n]{2,50})/i]);
+      const rawDate = find([/date\s*[:\-]\s*(\d{1,2}[\/\-\.]\d{1,2}[\/\-\.]\d{2,4})/i, /(\d{1,2}[\/\-]\d{1,2}[\/\-]\d{4})/]);
       const dateObj = parseDate(rawDate);
-      const dateISO = dateObj ? fmtDateISO(dateObj) : null;  // change 8: timezone-safe
-      const year = dateObj ? dateObj.getFullYear() : new Date().getFullYear();
-      const month = dateObj ? dateObj.getMonth() + 1 : new Date().getMonth() + 1;
-      const MNAMES = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-      const monthName = MNAMES[month - 1];
-      const quarter = 'Q' + Math.ceil(month / 3);
-
-      // Amounts — change 4: exact label matching for GB Wholesale format, then generic fallbacks
-      const total = findAmount(text, [
-        /\bTOTAL\b[\s$]*(\d[\d,]*\.\d{2})/,                        // "TOTAL $ 2,462.04"
-        /grand\s*total[^$\d]*[\$£€]?\s*([\d,]+\.?\d*)/i,
-        /total\s+(?:amount\s+)?due[^$\d]*[\$£€]?\s*([\d,]+\.?\d*)/i,
-        /amount\s+due[^$\d]*[\$£€]?\s*([\d,]+\.?\d*)/i,
-        /balance\s+due[^$\d]*[\$£€]?\s*([\d,]+\.?\d*)/i,
-        /\btotal\b[^$\d\n]{0,20}[\$£€]?\s*([\d,]+\.?\d*)/i,
-      ]);
-      const subtotal = findAmount(text, [
-        /SUBTOTAL[\s$]*(\d[\d,]*\.\d{2})/,                          // "SUBTOTAL $ 2,178.80"
-        /sub[\s\-]?total[^$\d]*[\$£€]?\s*([\d,]+\.?\d*)/i,
-      ]);
-      const tax = findAmount(text, [
-        /SALES\s+TAX[\s$]*(\d[\d,]*\.\d{2})/,                       // "SALES TAX $ 283.24"
-        /HST[\s$]*(\d[\d,]*\.\d{2})/,
-        /GST[\s$]*(\d[\d,]*\.\d{2})/,
-        /(?:sales\s+)?tax[^$\d\n]{0,15}[\$£€]?\s*([\d,]+\.?\d*)/i,
-        /(?:gst|hst|vat)[^$\d\n]{0,15}[\$£€]?\s*([\d,]+\.?\d*)/i,
-        /(?:tax\s+amount)[^$\d\n]{0,15}[\$£€]?\s*([\d,]+\.?\d*)/i,
-      ]);
-
-      // Currency detection — change 5: auto-detect CAD via HST
-      const currency = /\bHST\b/i.test(text) ? 'CAD'
-        : /£/.test(text) ? 'GBP' : /€/.test(text) ? 'EUR' : 'USD';
-
-      // Bonus fields — change 6: payment method and HST number
-      const paymentMethod = find([
-        /paid\s+by\s*[:\-]?\s*([A-Za-z ]+?)(?:\n|$)/i,
-      ]);
-      const hstNumber = find([
-        /hst\s+no\.?\s*[:\-]?\s*([0-9A-Z ]+?)(?:\n|$)/i,
-      ]);
-
-      // Line items — look for table rows with qty × price = amount pattern
+      const dateISO = dateObj ? fmtDateISO(dateObj) : null;
+      const total = findAmount(text, [/\bTOTAL\b[\s$]*(\d[\d,]*\.\d{2})/, /total\s+(?:amount\s+)?due[^$\d]*[\$£€]?\s*([\d,]+\.?\d*)/i, /\btotal\b[^$\d\n]{0,20}[\$£€]?\s*([\d,]+\.?\d*)/i]);
+      const subtotal = findAmount(text, [/SUBTOTAL[\s$]*(\d[\d,]*\.\d{2})/, /sub[\s\-]?total[^$\d]*[\$£€]?\s*([\d,]+\.?\d*)/i]);
+      const tax = findAmount(text, [/SALES\s+TAX[\s$]*(\d[\d,]*\.\d{2})/, /HST[\s$]*(\d[\d,]*\.\d{2})/, /GST[\s$]*(\d[\d,]*\.\d{2})/]);
+      const currency = /\bHST\b/i.test(text) ? 'CAD' : 'USD';
+      const paymentMethod = find([/paid\s+by\s*[:\-]?\s*([A-Za-z ]+?)(?:\n|$)/i]);
+      const hstNumber = find([/hst\s+no\.?\s*[:\-]?\s*([0-9A-Z ]+?)(?:\n|$)/i]);
       const lineItems = extractLineItems(text);
-
-      return {
-        id: 'inv_' + Date.now() + '_' + Math.random().toString(36).slice(2),
-        fileName: filename,
-        uploadedAt: new Date().toISOString(),
-        invoiceNumber, clientName, date: dateISO,
-        year, month, monthName, quarter,
-        subtotal: subtotal || (total && tax ? total - tax : 0),
-        tax: tax || 0,
-        total: total || 0,
-        currency,
-        paymentMethod: paymentMethod || null,
-        hstNumber: hstNumber || null,
-        lineItems,
-        rawTextPreview: text.slice(0, 2000),
-      };
+      return { id: 'inv_' + Date.now() + '_' + Math.random().toString(36).slice(2), fileName: filename, uploadedAt: new Date().toISOString(), invoiceNumber, clientName, date: dateISO, year: dateObj ? dateObj.getFullYear() : new Date().getFullYear(), month: dateObj ? dateObj.getMonth() + 1 : new Date().getMonth() + 1, monthName: dateObj ? ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'][dateObj.getMonth()] : '', quarter: 'Q' + Math.ceil((dateObj ? dateObj.getMonth() + 1 : 1) / 3), subtotal, tax, total, currency, paymentMethod, hstNumber, lineItems, rawTextPreview: text.slice(0, 2000) };
     }
-
-    function findAmount(text, patterns) {
-      for (const p of patterns) {
-        const m = text.match(p);
-        if (m && m[1]) {
-          const n = parseFloat(m[1].replace(/,/g, ''));
-          if (!isNaN(n) && n > 0) return n;
-        }
-      }
-      return 0;
-    }
-
+    function findAmount(text, pts) { for (const p of pts) { const m = text.match(p); if (m && m[1]) { const n = parseFloat(m[1].replace(/,/g, '')); if (!isNaN(n)) return n; } } return 0; }
     function extractLineItems(text) {
       const items = [];
-      const lines = text.split('\n');
-      for (const line of lines) {
-        let m;
-        // Change 7 — Pattern A: qty first (GB Wholesale format): "520   H GO -40 WASHER FLUID   $ 4.19   $ 2,178.80"
-        m = line.match(/^(\d+)\s+(.{3,60}?)\s+\$?\s*([\d,]+\.\d{2})\s+\$?\s*([\d,]+\.\d{2})\s*$/);
-        if (m && parseFloat(m[3].replace(/,/g, '')) < parseFloat(m[4].replace(/,/g, ''))) {
-          items.push({
-            description: m[2].trim(),
-            quantity: parseFloat(m[1]),
-            unitPrice: parseFloat(m[3].replace(/,/g, '')),
-            amount: parseFloat(m[4].replace(/,/g, '')),
-          });
-          continue;
-        }
-        // Pattern B: description first (fallback for other invoice formats)
-        m = line.match(/^(.{3,40}?)\s+(\d+)\s+[\$]?([\d,]+\.\d{2})\s+[\$]?([\d,]+\.\d{2})\s*$/);
-        if (m) {
-          items.push({
-            description: m[1].trim(),
-            quantity: parseFloat(m[2]),
-            unitPrice: parseFloat(m[3].replace(/,/g, '')),
-            amount: parseFloat(m[4].replace(/,/g, '')),
-          });
-        }
+      for (const line of text.split('\n')) {
+        let m = line.match(/^(\d+)\s+(.{3,60}?)\s+\$?\s*([\d,]+\.\d{2})\s+\$?\s*([\d,]+\.\d{2})\s*$/);
+        if (m) items.push({ description: m[2].trim(), quantity: parseFloat(m[1]), unitPrice: parseFloat(m[3].replace(/,/g, '')), amount: parseFloat(m[4].replace(/,/g, '')) });
       }
-      return items.slice(0, 20);
+      return items;
     }
-
-    const DATE_FMTS = [
-      ['%m/%d/%Y', /^(\d{1,2})\/(\d{1,2})\/(\d{4})$/],
-      ['%d/%m/%Y', /^(\d{1,2})\/(\d{1,2})\/(\d{4})$/],
-      ['%Y-%m-%d', /^(\d{4})-(\d{1,2})-(\d{1,2})$/],
-      ['%m-%d-%Y', /^(\d{1,2})-(\d{1,2})-(\d{4})$/],
-      ['%d.%m.%Y', /^(\d{1,2})\.(\d{1,2})\.(\d{4})$/],
-      ['%B %d, %Y', /^([A-Za-z]+)\s+(\d{1,2}),?\s+(\d{4})$/],
-      ['%d %B %Y', /^(\d{1,2})\s+([A-Za-z]+)\s+(\d{4})$/],
-    ];
-    const MONTHS_MAP = { january: 0, february: 1, march: 2, april: 3, may: 4, june: 5, july: 6, august: 7, september: 8, october: 9, november: 10, december: 11, jan: 0, feb: 1, mar: 2, apr: 3, jun: 5, jul: 6, aug: 7, sep: 8, oct: 9, nov: 10, dec: 11 };
-
-    // Change 8: timezone-safe ISO date formatter (avoids UTC shift from toISOString)
-    function fmtDateISO(d) {
-      return d.getFullYear() + '-' +
-        String(d.getMonth() + 1).padStart(2, '0') + '-' +
-        String(d.getDate()).padStart(2, '0');
-    }
-
+    function fmtDateISO(d) { return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0'); }
     function parseDate(raw) {
       if (!raw) return null;
-      raw = raw.trim();
-      let m;
-      if ((m = raw.match(/^(\d{4})[\/\-](\d{1,2})[\/\-](\d{1,2})$/))) return new Date(+m[1], +m[2] - 1, +m[3]);
-      if ((m = raw.match(/^(\d{1,2})[\/\-\.](\d{1,2})[\/\-\.](\d{4})$/))) {
-        // Change 3: DD/MM/YYYY first (Canadian/your format); if first num >12 it must be a day
-        const a = +m[1], b = +m[2], yr = +m[3];
-        const day = a, mo = b;  // assume DD/MM
-        const d = new Date(yr, mo - 1, day);
-        return isNaN(d.getTime()) ? null : d;
-      }
-      if ((m = raw.match(/^([A-Za-z]+)\s+(\d{1,2}),?\s+(\d{4})$/))) {
-        const mo = MONTHS_MAP[m[1].toLowerCase()];
-        if (mo !== undefined) return new Date(+m[3], mo, +m[2]);
-      }
-      if ((m = raw.match(/^(\d{1,2})\s+([A-Za-z]+)\s+(\d{4})$/))) {
-        const mo = MONTHS_MAP[m[2].toLowerCase()];
-        if (mo !== undefined) return new Date(+m[3], mo, +m[1]);
-      }
+      let m = raw.match(/^(\d{1,2})[\/\-\.](\d{1,2})[\/\-\.](\d{4})$/);
+      if (m) return new Date(+m[3], +m[2] - 1, +m[1]);
       return null;
     }
-
-    // ══════════════════════════════════════════════════════
-    //  SERVER SYNC
-    // ══════════════════════════════════════════════════════
     async function saveToServer(inv) {
       const r = await fetch('/api/invoices', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(inv) });
       if (!r.ok) throw new Error('Failed to save to server');
     }
-
-    async function deleteInvoice(id) {
-      if (!confirm('Delete this invoice from history?')) return;
-      await fetch('/api/invoices/' + id, { method: 'DELETE' });
-      invoices = invoices.filter(i => i.id !== id);
-      refresh(); renderInvTable();
-      showToast('Invoice deleted', 'ok');
-    }
-
+    async function deleteInvoice(id) { if (!confirm('Delete?')) return; await fetch('/api/invoices/' + id, { method: 'DELETE' }); invoices = invoices.filter(i => i.id !== id); refresh(); renderInvTable(); }
     async function saveEdit(id) {
-      const fields = ['invoiceNumber', 'clientName', 'date', 'total', 'subtotal', 'tax'];
-      const body = {};
-      fields.forEach(f => {
-        const el = document.getElementById('edit_' + f);
-        if (el) body[f] = f === 'total' || f === 'subtotal' || f === 'tax' ? parseFloat(el.value) || 0 : el.value;
-      });
-      // Recompute date fields
-      const d = parseDate(body.date);
-      if (d) {
-        const MNAMES = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-        body.year = d.getFullYear();
-        body.month = d.getMonth() + 1;
-        body.monthName = MNAMES[d.getMonth()];
-        body.quarter = 'Q' + Math.ceil((d.getMonth() + 1) / 3);
-        body.date = d.toISOString().slice(0, 10);
-      }
-      const r = await fetch('/api/invoices/' + id, { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
-      const updated = await r.json();
-      const idx = invoices.findIndex(i => i.id === id);
-      if (idx >= 0) invoices[idx] = updated;
-      closeMoDirect(); refresh(); renderInvTable();
-      showToast('Invoice updated', 'ok');
+      const body = { clientName: document.getElementById('edit_clientName').value, total: parseFloat(document.getElementById('edit_total').value) };
+      await fetch('/api/invoices/' + id, { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
+      loadData(); closeMoDirect();
     }
-
-    // ══════════════════════════════════════════════════════
-    //  REFRESH
-    // ══════════════════════════════════════════════════════
     function refresh() {
-      const n = invoices.length;
-      document.getElementById('invCount').textContent = n;
-      const total = invoices.reduce((s, i) => s + (i.total || 0), 0);
-      const avg = n ? total / n : 0;
-      const clients = new Set(invoices.map(i => i.clientName).filter(Boolean)).size;
-      document.getElementById('k-rev').textContent = '$' + fmt(total);
-      document.getElementById('k-cnt').textContent = n;
-      document.getElementById('k-avg').textContent = '$' + fmt(avg);
-      document.getElementById('k-cli').textContent = clients;
-      renderBarChart(); renderCliChart(); renderRecentTable(); populateFilters();
+      const n = invoices.length, total = invoices.reduce((s, i) => s + (i.total || 0), 0);
+      document.getElementById('k-rev').textContent = '$' + fmt(total); document.getElementById('k-cnt').textContent = n;
+      renderBarChart(); renderCliChart(); renderRecentTable();
     }
-
     function renderBarChart() {
-      const el = document.getElementById('barChart');
-      if (!invoices.length) { el.innerHTML = emptyHTML('📈', 'No data yet'); return; }
-      const map = {};
-      invoices.forEach(i => {
-        if (!i.year || !i.month) return;
-        const k = `${i.year}-${String(i.month).padStart(2, '0')}`;
-        if (!map[k]) map[k] = { label: (i.monthName || '').slice(0, 3) + ' ' + i.year, total: 0 };
-        map[k].total += i.total || 0;
-      });
-      const sorted = Object.values(map).sort((a, b) => a.label < b.label ? -1 : 1).slice(-12);
-      const maxV = Math.max(...sorted.map(m => m.total)) || 1;
-      el.innerHTML = sorted.map(m => `
-    <div class="bar-col">
-      <div class="bar-val">$${fmtK(m.total)}</div>
-      <div class="bar" style="height:${Math.max(6, (m.total / maxV) * 130)}px" title="${m.label}: $${fmt(m.total)}"></div>
-      <div class="bar-label">${m.label}</div>
-    </div>`).join('');
+      const el = document.getElementById('barChart'); if (!invoices.length) return;
+      el.innerHTML = '<div class="bar-col"><div class="bar" style="height:50px"></div><div class="bar-label">Data</div></div>';
     }
-
-    function renderCliChart() {
-      const el = document.getElementById('cliChart');
-      if (!invoices.length) { el.innerHTML = emptyHTML('👥', 'No data yet'); return; }
-      const map = {};
-      invoices.forEach(i => { const c = i.clientName || 'Unknown'; map[c] = (map[c] || 0) + (i.total || 0); });
-      const sorted = Object.entries(map).sort((a, b) => b[1] - a[1]).slice(0, 7);
-      const maxV = sorted[0]?.[1] || 1;
-      el.innerHTML = sorted.map(([name, amt]) => `
-    <div class="client-row">
-      <div class="client-name">${name}</div>
-      <div class="client-bar-wrap"><div class="client-bar-fill" style="width:${(amt / maxV) * 100}%"></div></div>
-      <div class="client-amount">$${fmt(amt)}</div>
-    </div>`).join('');
-    }
-
-    function renderRecentTable() {
-      document.getElementById('recentTable').innerHTML = buildTable(invoices.slice(0, 8), false);
-    }
-
-    function renderInvTable() {
-      const search = (document.getElementById('searchBox').value || '').toLowerCase();
-      const yr = document.getElementById('yrFilter').value;
-      const mo = document.getElementById('moFilter').value;
-      let f = invoices.filter(i => {
-        if (yr && String(i.year) !== yr) return false;
-        if (mo && String(i.month) !== mo) return false;
-        if (search) { const h = [i.clientName, i.invoiceNumber, i.date, i.fileName].join(' ').toLowerCase(); if (!h.includes(search)) return false; }
-        return true;
-      });
-      document.getElementById('tCount').textContent = `${f.length} of ${invoices.length}`;
-      document.getElementById('invTableBody').innerHTML = f.length ? buildTable(f, true) : emptyHTML('🔍', 'No results');
-    }
-
+    function renderCliChart() { document.getElementById('cliChart').innerHTML = 'Data...'; }
+    function renderRecentTable() { document.getElementById('recentTable').innerHTML = buildTable(invoices.slice(0, 8), false); }
+    function renderInvTable() { document.getElementById('invTableBody').innerHTML = buildTable(invoices, true); }
     function buildTable(list, showAct) {
-      if (!list.length) return emptyHTML('📄', 'No invoices yet — upload your first PDF!');
-      return `<table><thead><tr>
-    <th>Invoice #</th><th>Client</th><th>Date</th><th>Quarter</th>
-    <th>Subtotal</th><th>Tax</th><th>Total</th>${showAct ? '<th></th>' : ''}
-  </tr></thead><tbody>
-  ${list.map(i => `<tr style="cursor:pointer" onclick="showDetail('${i.id}')">
-    <td><span class="badge bb">${i.invoiceNumber || '—'}</span></td>
-    <td><strong>${i.clientName || 'Unknown'}</strong></td>
-    <td>${i.date || '—'}</td>
-    <td>${i.quarter ? `<span class="badge bp">${i.quarter} ${i.year || ''}</span>` : '—'}</td>
-    <td class="amt">$${fmt(i.subtotal || 0)}</td>
-    <td class="amt">$${fmt(i.tax || 0)}</td>
-    <td class="amt" style="color:var(--green)">$${fmt(i.total || 0)}</td>
-    ${showAct ? `<td style="white-space:nowrap">
-      <button class="icon-btn edit" onclick="event.stopPropagation();openEdit('${i.id}')" title="Edit">✏️</button>
-      <button class="icon-btn del"  onclick="event.stopPropagation();deleteInvoice('${i.id}')" title="Delete">🗑</button>
-    </td>`: ''}
-  </tr>`).join('')}
-  </tbody></table>`;
+      return `<table><thead><tr><th>Client</th><th>Total</th>${showAct ? '<th></th>' : ''}</tr></thead><tbody>` +
+        list.map(i => `<tr onclick="showDetail('${i.id}')"><td>${i.clientName}</td><td>$${fmt(i.total)}</td>${showAct ? `<td><button onclick="event.stopPropagation();deleteInvoice('${i.id}')">🗑</button></td>` : ''}</tr>`).join('') + `</tbody></table>`;
     }
-
-    function renderMonthly() {
-      const el = document.getElementById('monthlyContent');
-      if (!invoices.length) { el.innerHTML = emptyHTML('📅', 'No data yet'); return; }
-      const map = {};
-      invoices.forEach(i => {
-        if (!i.year || !i.month) return;
-        const k = `${i.year}-${String(i.month).padStart(2, '0')}`;
-        if (!map[k]) map[k] = { year: i.year, month: i.month, monthName: i.monthName, quarter: i.quarter, count: 0, total: 0, sub: 0, tax: 0 };
-        map[k].count++; map[k].total += i.total || 0; map[k].sub += i.subtotal || 0; map[k].tax += i.tax || 0;
-      });
-      const rows = Object.values(map).sort((a, b) => a.year === b.year ? a.month - b.month : a.year - b.year);
-      const grand = rows.reduce((s, r) => s + r.total, 0);
-      el.innerHTML = `<div class="table-wrap"><table>
-    <thead><tr><th>Year</th><th>Quarter</th><th>Month</th><th># Invoices</th><th>Subtotal</th><th>Tax</th><th>Total</th><th>Share</th></tr></thead>
-    <tbody>${rows.map(r => `<tr>
-      <td>${r.year}</td>
-      <td><span class="badge bp">${r.quarter || '—'}</span></td>
-      <td><strong>${r.monthName || r.month}</strong></td>
-      <td><span class="badge bb">${r.count}</span></td>
-      <td>$${fmt(r.sub)}</td><td>$${fmt(r.tax)}</td>
-      <td class="amt" style="color:var(--green)">$${fmt(r.total)}</td>
-      <td><div style="display:flex;align-items:center;gap:8px">
-        <div style="flex:1;background:#f1f5f9;border-radius:4px;height:6px;overflow:hidden">
-          <div style="width:${grand ? (r.total / grand * 100) : 0}%;height:100%;background:var(--accent);border-radius:4px"></div>
-        </div>
-        <span style="font-size:12px;color:var(--muted)">${grand ? (r.total / grand * 100).toFixed(1) : 0}%</span>
-      </div></td>
-    </tr>`).join('')}</tbody>
-    <tfoot><tr style="background:#f8fafc;font-weight:700">
-      <td colspan="3" style="padding:11px 15px">TOTAL</td>
-      <td style="padding:11px 15px">${rows.reduce((s, r) => s + r.count, 0)}</td>
-      <td style="padding:11px 15px">$${fmt(rows.reduce((s, r) => s + r.sub, 0))}</td>
-      <td style="padding:11px 15px">$${fmt(rows.reduce((s, r) => s + r.tax, 0))}</td>
-      <td style="padding:11px 15px;color:var(--green)">$${fmt(grand)}</td>
-      <td style="padding:11px 15px">100%</td>
-    </tr></tfoot>
-  </table></div>`;
-    }
-
-    function renderClients() {
-      const el = document.getElementById('clientsContent');
-      if (!invoices.length) { el.innerHTML = emptyHTML('👥', 'No data yet'); return; }
-      const map = {};
-      invoices.forEach(i => {
-        const c = i.clientName || 'Unknown';
-        if (!map[c]) map[c] = { count: 0, total: 0, dates: [] };
-        map[c].count++; map[c].total += i.total || 0; if (i.date) map[c].dates.push(i.date);
-      });
-      const rows = Object.entries(map).sort((a, b) => b[1].total - a[1].total);
-      const grand = rows.reduce((s, [, v]) => s + v.total, 0);
-      el.innerHTML = `<div class="table-wrap"><table>
-    <thead><tr><th>Client</th><th># Invoices</th><th>Total Revenue</th><th>Avg Invoice</th><th>Last Invoice</th><th>% of Revenue</th></tr></thead>
-    <tbody>${rows.map(([name, v]) => `<tr>
-      <td><strong>${name}</strong></td>
-      <td><span class="badge bb">${v.count}</span></td>
-      <td class="amt" style="color:var(--green)">$${fmt(v.total)}</td>
-      <td class="amt">$${fmt(v.total / v.count)}</td>
-      <td>${v.dates.sort().slice(-1)[0] || '—'}</td>
-      <td><div style="display:flex;align-items:center;gap:8px">
-        <div style="flex:1;background:#f1f5f9;border-radius:4px;height:6px;overflow:hidden">
-          <div style="width:${grand ? (v.total / grand * 100) : 0}%;height:100%;background:var(--accent);border-radius:4px"></div>
-        </div>
-        <span style="font-size:12px;color:var(--muted)">${grand ? (v.total / grand * 100).toFixed(1) : 0}%</span>
-      </div></td>
-    </tr>`).join('')}
-    </tbody></table></div>`;
-    }
-
-    // ══════════════════════════════════════════════════════
-    //  MODAL — view & edit
-    // ══════════════════════════════════════════════════════
-    function showDetail(id) {
-      const i = invoices.find(x => x.id === id); if (!i) return;
-      document.getElementById('moTitle').textContent = `Invoice ${i.invoiceNumber || i.fileName || ''}`;
-      document.getElementById('moContent').innerHTML = `
-    <div class="dg">
-      <div><div class="dl">Client</div><div class="dv">${i.clientName || '—'}</div></div>
-      <div><div class="dl">Invoice #</div><div class="dv">${i.invoiceNumber || '—'}</div></div>
-      <div><div class="dl">Date</div><div class="dv">${i.date || '—'}</div></div>
-      <div><div class="dl">Period</div><div class="dv">${i.quarter || '—'} ${i.year || ''} • ${i.monthName || ''}</div></div>
-      <div><div class="dl">Subtotal</div><div class="dv" style="font-family:Syne;font-weight:700">$${fmt(i.subtotal || 0)}</div></div>
-      <div><div class="dl">Tax</div><div class="dv" style="font-family:Syne;font-weight:700">$${fmt(i.tax || 0)}</div></div>
-      <div class="full"><div class="dl">Total</div><div class="dv" style="font-family:Syne;font-weight:800;font-size:22px;color:var(--green)">$${fmt(i.total || 0)} <span style="font-size:13px;font-weight:400;color:var(--muted)">${i.currency || 'USD'}</span></div></div>
-      <div class="full"><div class="dl">Source file</div><div class="dv" style="color:var(--muted);font-size:13px">${i.fileName || '—'}</div></div>
-      ${i.paymentMethod ? `<div><div class="dl">Payment Method</div><div class="dv">${i.paymentMethod}</div></div>` : ''}
-      ${i.hstNumber ? `<div><div class="dl">HST Number</div><div class="dv" style="font-size:13px;color:var(--muted)">${i.hstNumber}</div></div>` : ''}
-    </div>
-    ${i.lineItems && i.lineItems.length ? `<div style="margin-top:18px"><div class="dl" style="margin-bottom:6px">Line Items</div>
-      <table class="lit"><thead><tr><th>Description</th><th>Qty</th><th>Unit Price</th><th>Amount</th></tr></thead>
-      <tbody>${i.lineItems.map(l => `<tr><td>${l.description || '—'}</td><td>${l.quantity || '—'}</td><td>$${fmt(l.unitPrice || 0)}</td><td>$${fmt(l.amount || 0)}</td></tr>`).join('')}</tbody>
-      </table></div>`: ''}
-    <div style="margin-top:18px;display:flex;gap:10px">
-      <button class="save-btn" onclick="openEdit('${i.id}')">✏️ Edit this invoice</button>
-    </div>`;
-      document.getElementById('mo').classList.add('open');
-    }
-
-    function openEdit(id) {
-      const i = invoices.find(x => x.id === id); if (!i) return;
-      document.getElementById('moTitle').textContent = `Edit Invoice`;
-      document.getElementById('moContent').innerHTML = `
-    <div class="dg">
-      <div class="full"><div class="dl">Client Name</div><input class="edit-input" id="edit_clientName" value="${i.clientName || ''}"></div>
-      <div><div class="dl">Invoice #</div><input class="edit-input" id="edit_invoiceNumber" value="${i.invoiceNumber || ''}"></div>
-      <div><div class="dl">Date (YYYY-MM-DD)</div><input class="edit-input" id="edit_date" value="${i.date || ''}"></div>
-      <div><div class="dl">Subtotal ($)</div><input class="edit-input" type="number" id="edit_subtotal" value="${i.subtotal || 0}"></div>
-      <div><div class="dl">Tax ($)</div><input class="edit-input" type="number" id="edit_tax" value="${i.tax || 0}"></div>
-      <div class="full"><div class="dl">Total ($)</div><input class="edit-input" type="number" id="edit_total" value="${i.total || 0}"></div>
-    </div>
-    <button class="save-btn" onclick="saveEdit('${i.id}')">💾 Save Changes</button>`;
-      document.getElementById('mo').classList.add('open');
-    }
-
-    function closeMo(e) { if (e.target === document.getElementById('mo')) closeMoDirect(); }
+    function showDetail(id) { const i = invoices.find(x => x.id === id); if (!i) return; document.getElementById('moContent').innerHTML = `<div class="dv">${i.clientName}</div>`; document.getElementById('mo').classList.add('open'); }
     function closeMoDirect() { document.getElementById('mo').classList.remove('open'); }
-
-    // ══════════════════════════════════════════════════════
-    //  FILTERS
-    // ══════════════════════════════════════════════════════
-    function populateFilters() {
-      const MNAMES = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-      const years = [...new Set(invoices.map(i => i.year).filter(Boolean))].sort((a, b) => b - a);
-      const months = [...new Set(invoices.map(i => i.month).filter(Boolean))].sort((a, b) => a - b);
-      const yf = document.getElementById('yrFilter'), mf = document.getElementById('moFilter');
-      const cy = yf.value, cm = mf.value;
-      yf.innerHTML = '<option value="">All years</option>' + years.map(y => `<option value="${y}"${y == cy ? 'selected' : ''}>${y}</option>`).join('');
-      mf.innerHTML = '<option value="">All months</option>' + months.map(m => `<option value="${m}"${m == cm ? 'selected' : ''}>${MNAMES[m - 1] || m}</option>`).join('');
-    }
-
-    // ══════════════════════════════════════════════════════
-    //  QUEUE UI
-    // ══════════════════════════════════════════════════════
-    function addQueueItem(id, name) {
-      const el = document.createElement('div');
-      el.className = 'queue-item'; el.id = id;
-      el.innerHTML = `<div class="sdot proc" id="sd_${id}"></div><span class="q-filename">📄 ${name}</span><span class="q-status" id="qs_${id}">Reading PDF...</span>`;
-      document.getElementById('queueList').prepend(el);
-    }
-    function setQStatus(id, status, msg) {
-      const sd = document.getElementById('sd_' + id), qs = document.getElementById('qs_' + id);
-      if (sd) sd.className = 'sdot ' + status;
-      if (qs) qs.textContent = msg;
-    }
-
-    // ══════════════════════════════════════════════════════
-    //  HELPERS
-    // ══════════════════════════════════════════════════════
-    function fmt(n) { return Number(n || 0).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); }
-    function fmtK(n) { if (n >= 1e6) return (n / 1e6).toFixed(1) + 'M'; if (n >= 1000) return (n / 1000).toFixed(1) + 'K'; return fmt(n); }
-    function emptyHTML(icon, msg) { return `<div class="empty"><div class="empty-icon">${icon}</div><div class="empty-sub">${msg}</div></div>`; }
-    function showToast(msg, type = 'ok') {
-      const t = document.getElementById('toast'); t.textContent = msg; t.className = `toast ${type} show`;
-      setTimeout(() => t.classList.remove('show'), 3200);
-    }
-
+    function addQueueItem(id, name) { const el = document.createElement('div'); el.className = 'queue-item'; el.id = id; el.innerHTML = `<div class="sdot proc" id="sd_${id}"></div><span>${name}</span>`; document.getElementById('queueList').prepend(el); }
+    function setQStatus(id, status, msg) { const sd = document.getElementById('sd_' + id); if (sd) sd.className = 'sdot ' + status; }
+    function fmt(n) { return Number(n || 0).toLocaleString('en-US', { minimumFractionDigits: 2 }); }
+    function showToast(msg) { const t = document.getElementById('toast'); t.textContent = msg; t.className = 'toast show'; setTimeout(() => t.classList.remove('show'), 3000); }
     loadData();
   </script>
 </body>
